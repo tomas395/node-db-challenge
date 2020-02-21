@@ -8,7 +8,7 @@ exports.up = function(knex) {
         tbl
           .boolean("completed_project")
           .notNullable()
-          .defaultTo("false");
+          .defaultTo(false);
       })
 
       //Adding a description is OPTIONAL
@@ -38,7 +38,7 @@ exports.up = function(knex) {
         tbl
           .boolean("completed_task")
           .notNullable()
-          .defaultTo("false");
+          .defaultTo(false);
       })
 
       .createTable("projectsDetails", tbl => {
