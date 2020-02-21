@@ -13,16 +13,17 @@ exports.up = function(knex) {
 
       //Adding a description is OPTIONAL
 
-      .createTable("resource", tbl => {
+      .createTable("resources", tbl => {
         tbl.increments();
         tbl.text("resource_name").notNullable();
-        tbl.text("description");
+        tbl.text("resourceDescription");
       })
 
       // notes are OPTIONAL
 
       .createTable("tasks", tbl => {
         tbl.increments();
+        tbl.string("task").notNullable();
         tbl
           .integer("project_id", 100)
           .unsigned()
@@ -32,8 +33,8 @@ exports.up = function(knex) {
           .onDelete("RESTRICT")
           .onUpdate("CASCADE");
 
-        tbl.text("description").notNullable();
-        tbl.text("notes");
+        tbl.text("taskDescription").notNullable();
+        tbl.string("notes");
         tbl
           .boolean("completed_task")
           .notNullable()
@@ -59,7 +60,6 @@ exports.up = function(knex) {
           .inTable("resource")
           .onDelete("RESTRICT")
           .onUpdate("CASCADE");
-        tbl.integer("quantity");
       })
   );
 };
@@ -67,7 +67,7 @@ exports.up = function(knex) {
 exports.down = function(knex) {
   return knex.schema
     .dropTableIfExists("projects")
-    .dropTableIfExists("resource")
+    .dropTableIfExists("resources")
     .dropTableIfExists("tasks")
     .dropTableIfExists("projectsDetails");
 };

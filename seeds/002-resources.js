@@ -3,8 +3,8 @@ exports.seed = function(knex) {
     .truncate()
     .then(function() {
       return knex("resources").insert([
-        { id: 1, resource_name: "Lemon Juice", description: "super juice" },
-        { id: 2, resource_name: "NyQuill", description: "stooper juice" }
+        { resource_name: "Lemon Juice", resourceDescription: "super juice" },
+        { resource_name: "NyQuill", resourceDescription: "stooper juice" }
       ]);
     });
 };

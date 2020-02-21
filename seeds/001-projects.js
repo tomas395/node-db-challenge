@@ -4,14 +4,14 @@ exports.seed = function(knex) {
     .then(function() {
       return knex("projects").insert([
         {
-          id: 1,
           project_name: "Scrub 100 Stoves",
-          project_description: "Use elbow grease to make 100 stoves sparkle."
+          project_description: "Use elbow grease to make 100 stoves sparkle.",
+          completed_project: ""
         },
         {
-          id: 2,
           project_name: "Sleep",
-          project_description: "Close eyes until you leave the astral plane."
+          project_description: "Close eyes until you leave the astral plane.",
+          completed_project: ""
         }
       ]);
     });
