@@ -6,8 +6,8 @@ const db = require("../data/projectModel");
 
 // here come the CRUD
 
-router.get("/", (req, res) => {
-  db("projects")
+router.get("/projects", (req, res) => {
+  db.getProjects()
     .then(allProjects => {
       res.json(allProjects);
     })
@@ -18,8 +18,8 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/", (req, res) => {
-  db("resources")
+router.get("/resources", (req, res) => {
+  db.getResources()
     .then(allResources => {
       res.json(allResources);
     })
@@ -30,65 +30,51 @@ router.get("/", (req, res) => {
     });
 });
 
-//   router.get("/", (req, res) => {
-//     db("project")
-//       .then(allProjects => {
-//         res.json(allProjects);
-//       })
-//       .catch(err => {
-//         res.status(500).json({ message: "Failed to retrieve the projects :(" });
-//       });
-//   });
-
-router.post("/", (req, res) => {
-  const projectsData = req.body;
-  db("projects")
-    .insert(projectsData)
-    .then(ids => {
-      db("projects")
-        .where({ id: ids[0] })
-        .then(newProject => {
-          res.status(201).json(newProject);
-        });
+router.get("/tasks", (req, res) => {
+  db.getTasks()
+    .then(task => {
+      res.json(task);
     })
     .catch(err => {
-      console.log("POST error", err);
-      res.status(500).json({ message: "Failed to store project data :(" });
+      console.log("POST resources error", err);
+      res.status(500).json({ message: "Failed to retrieve the task :(" });
     });
 });
 
-// router.post("/", (req, res) => {
-//     const projectsData = req.body;
-//     db("projects")
-//       .insert(projectsData)
-//       .then(ids => {
-//         db("projects")
-//           .where({ id: ids[0] })
-//           .then(newProject => {
-//             res.status(201).json(newProject);
-//           });
-//       })
-//       .catch(err => {
-//         console.log("POST error", err);
-//         res.status(500).json({ message: "Failed to store project data :(" });
-//       });
-//   });
+router.post("/resources", (req, res) => {
+  const newResource = req.body;
+  db.addProjects(newResource)
+    .then(resource => {
+      res.status(201).json(resource);
+    })
+    .catch(err => {
+      console.log("POST resources error", err);
+      res.status(500).json({ message: "Failed to add the resource data :(" });
+    });
+});
 
-//   router.post("/", (req, res) => {
-//     const projectsData = req.body;
-//     db("projects")
-//       .insert(projectsData)
-//       .then(ids => {
-//         db("projects")
-//           .where({ id: ids[0] })
-//           .then(newProject => {
-//             res.status(201).json(newProject);
-//           });
-//       })
-//       .catch(err => {
-//         console.log("POST error", err);
-//         res.status(500).json({ message: "Failed to store project data :(" });
-//       });
-//   });
+router.post("/projects", (req, res) => {
+  const newProject = req.body;
+  db.addProjects(newProject)
+    .then(project => {
+      res.status(201).json(project);
+    })
+    .catch(err => {
+      console.log("POST projects error", err);
+      res.status(500).json({ message: "Failed to add project data :(" });
+    });
+});
+
+router.post("/tasks", (req, res) => {
+  const newTask = req.body;
+  db.addProjects(newTask)
+    .then(task => {
+      res.status(201).json(task);
+    })
+    .catch(err => {
+      console.log("POST task error", err);
+      res.status(500).json({ message: "Failed to add task data :(" });
+    });
+});
 
 module.exports = router;
